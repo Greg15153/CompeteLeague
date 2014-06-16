@@ -1,8 +1,4 @@
 <?php
-    include_once("../globals.php");
-    global $seasonSQL;
-    global $lolKey;
-    
      //Gets HTML data from a data page, USED FOR LOL API -- DO NOT DELETE
     function get_data($url) {
         $ch = curl_init();

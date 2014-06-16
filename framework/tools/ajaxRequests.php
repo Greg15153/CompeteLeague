@@ -1,18 +1,13 @@
 <?php
-    include_once("../globals.php");
+    include_once("../adminGlobals.php");
     include_once("lolRequests.php");
     global $seasonSQL;
     global $currentSeason;
     global $lolKey;
     
-    $division = $_POST['division'];
-    $email = $_POST['email'];
-    $team = $_POST['team'];
-    $submitGame = $_POST['submitGame'];
-
-
     //Gets teams for division for Admin Page - Submit Game
-    if($division != null){         
+    if(isset($_POST['division'])){
+		$division = $_POST['division'];
         $result = '{ "teams" : [';
         $getTeams = $seasonSQL->getArray("SELECT id,name FROM teams WHERE season='$currentSeason' AND division='$division' ORDER BY name ASC");
        
@@ -26,7 +21,8 @@
 
 
     //Gets Team Players for Admin Page - Submit Game
-    if($team != null){
+    if(isset($_POST['team'])){
+		$team = $_POST['team'];
         $result = '{ "players" : [';
         
         $getPlayers = $seasonSQL->getArray("SELECT id,LoLid, summoner,profilePicture,position FROM players WHERE team=$team ORDER BY position ASC");
@@ -40,7 +36,8 @@
     }
     
     //Sends an email for Contact Us page
-    if($email != null){
+    if(isset($_POST['email'])){
+			$email = $_POST['email'];
             $message = $_POST['emailContent'];
             $message = wordwrap($message, 70);
             
@@ -56,7 +53,7 @@
     
     
     //Submits a Game to the Game table for page: /AdminArea/submitGame.php
-    if($submitGame != null){
+    if(isset($_POST['submitGame'])){
         $team1 = $_POST['SGteam1'];
         $team2 = $_POST['SGteam2'];
         $division = $_POST['SGdivision'];

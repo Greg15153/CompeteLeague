@@ -12,16 +12,22 @@
 		-ms-box-sizing: border-box;
 		box-sizing: border-box;
 	}
-
+	
 	body
 	{
 		font-family: 'Open Sans', sans-serif;
 		font-size: 11pt;
 		line-height: 1.85em;
 		color: #888;
-		background: url('images/bg02.jpg');
+		background: url('../images/bg02.jpg');
 	}
 	
+	#error {
+	background-color: #E53e39;
+	color: #FFFFFF;
+	text-align: center;
+	width: 100%;
+}
 	a
 	{
 		color: #3A8EB5;
@@ -590,7 +596,7 @@
 
 	#header-wrapper
 	{
-		background: url('../imgs/hero-bg.jpg') top center;
+		background: url('../images/hero-bg.jpg') top center;
 		background-size: 100%;
 	}
 	
