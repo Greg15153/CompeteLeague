@@ -5,8 +5,8 @@
 		
 
 <?php
-if(isset($_GET['league'])){
-if($_GET['league'] == 'Silver' || $_GET['league'] == 'Platinum' || $_GET['league'] == 'Diamond'){
+if(isset($_GET['league']) && ($_GET['league'] == 'Silver' || $_GET['league'] == 'Platinum' || $_GET['league'] == 'Diamond')){
+
 		$league = $_GET['league'];
 		
 	if($league == 'Silver'){
@@ -51,7 +51,7 @@ if($_GET['league'] == 'Silver' || $_GET['league'] == 'Platinum' || $_GET['league
 	<!-- Content - Diamond -->
 <?php
 	}
-}}
+}
 else{
 ?>
 	<!-- Content -->

@@ -9,8 +9,8 @@
 									<div id="sidebar">
 												<header>
 <?php
-if(isset($_GET['league'])){
-	if($_GET['league'] == 'Silver' || $_GET['league'] == 'Platinum' || $_GET['league'] == 'Diamond'){
+if(isset($_GET['league']) && ($_GET['league'] == 'Silver' || $_GET['league'] == 'Platinum' || $_GET['league'] == 'Diamond')){
+
 		$league = $_GET['league'];
 ?>
    <h2><?=$league?> League</h2>
@@ -27,7 +27,7 @@ if(isset($_GET['league'])){
 		<li><a href="?do=Rules&league=<?=$league?>">Rules</a></li>
         <li><a href="?do=Archive&league=<?=$league?>">Archive</a></li>
 <?php
-	}}
+	}
 	else{
 ?>
 	<h2>Leagues</h2>

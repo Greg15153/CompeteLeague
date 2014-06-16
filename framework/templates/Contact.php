@@ -3,7 +3,7 @@
 	<div id="content">
 									
 <?php
-	if(isset($_GET['reason'])){
+	if(isset($_GET['reason']) && ($_GET['reason'] == 'Jobs' || $_GET['reason'] == 'Email')){
 	if($_GET['reason'] == 'Jobs'){
 ?>		
 		<!-- Jobs content -->
