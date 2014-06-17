@@ -40,3 +40,21 @@
 	            });
             }
         }
+		
+	function getUrlVars() {
+		var vars = {};
+		var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+			vars[key] = value;
+		});
+		return vars;
+	}
+	
+		function loginPopup(){
+			if($(".loginPopup").css('display') == "block")
+				$(".loginPopup").hide();
+			else
+				$(".loginPopup").show(); 
+			$(".closePopup").click(function(e) { 
+				$(".loginPopup, .overlay").hide(); 
+			}); 
+		}

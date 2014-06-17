@@ -1,24 +1,25 @@
 <?php
-	session_start();
-	ob_start();
-
 	//error_reporting(0);
-	require_once("mysql.php");
 	require_once("Clean.php");
 	require_once("TemplateHandler.php");
 	require_once("MessageHandler.php");
 	require_once("RequestHandler.php");
-	
+	require_once("tools/loginFunctions.php");
+	session_start();
+	//sec_session_start();
 	###### Constants ######
 	
 	/* Define Constants */
-	define("HOST", "competeleague.db.11835769.hostedresource.com");
+	//define("HOST", "competeleague.db.11835769.hostedresource.com");
+	define("HOST", "localhost");
 	
 	/* User for MYSQL */
-	define("USER", "competeleague");
+	//define("USER", "competeleague");
+	define("USER", "root");
 	
 	/* Password for MYSQL */
-	define("PASS", "we3Raxa@a6!ase");
+	//define("PASS", "we3Raxa@a6!ase");
+	define("PASS", "");
 	
 	/* Database for MYSQL */
 	define("DBASE", "competeleague");
@@ -42,7 +43,7 @@
 	###### Global Variables ######
 
 	/* Global MYSQL Object */
-	$mysql = new MYSQL(HOST, USER, PASS, DBASE);
+	$mysqli = new mysqli(HOST, USER, PASS, DBASE);
 	
 	/* Global Template Handler Object */
 	$th = new TH();
@@ -51,7 +52,7 @@
 	$mh = new MH();
 	
 	/* Global Security Object */
-	$clean = new CLEAN($mysql);
+	$clean = new CLEAN($mysqli);
 	
 	/* Global do $_GET value validates input */
 	$do = $clean->cleanInput((isset($_GET['do']) ? $_GET['do'] : ""));

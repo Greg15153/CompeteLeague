@@ -42,6 +42,8 @@
     <script src="js/skel.min.js"></script>
     <script src="js/skel-panels.min.js"></script>
 	<script src="js/functions.js"></script>
+	<script type="text/JavaScript" src="js/sha512.js"></script> 
+    <script type="text/JavaScript" src="js/loginForms.js"></script>
     <link rel="icon" type="image/ico" href="images/trasparentlogo.ico">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link rel="stylesheet" href="css/skel-noscript.css" />

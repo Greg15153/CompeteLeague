@@ -21,13 +21,7 @@
 		color: #888;
 		background: url('../images/bg02.jpg');
 	}
-	
-	#error {
-	background-color: #E53e39;
-	color: #FFFFFF;
-	text-align: center;
-	width: 100%;
-}
+
 	a
 	{
 		color: #3A8EB5;
@@ -589,7 +583,64 @@
 			line-height: 1.3em;
 			letter-spacing: 0.04em;
 		}
-
+		
+			
+	#error {
+		background-color: #E53e39;
+		color: #FFFFFF;
+		text-align: center;
+		width: 100%;
+	}
+	#success{
+		background-color: #009900;
+		color: #FFFFFF;
+		text-align: center;
+		width: 100%;
+	}
+	
+	#navLoginContainer{
+		width: 300px;
+	}
+	
+	#navLoginBtn{
+		text-align: center;
+		width: 100px;
+		margin-left: 5px;
+		padding: 2px;
+		background-color: #252525;
+		border-left: 2px solid;
+		border-bottom: 2px solid;
+		border-right: 2px solid;
+		border-radius: 2px;
+		cursor: pointer;
+		float: left;
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		user-select: none;
+	}
+	
+	.loginPopup {
+		position: absolute;
+		margin-left: 5px;
+		padding: 2px;
+		border-left: 2px solid;
+		border-bottom: 2px solid;
+		border-right: 2px solid;
+		border-radius: 2px;
+		z-index: 999;
+		display: none;
+		background-color: #252525;
+	}
+	.closePopup{
+		display: block;
+		float: left;
+		vertical-align: middle;
+		padding-right: 5px;
+	}
+	#socialMedia{
+		float: right;
+		margin-right: 5px;
+	}
 /*********************************************************************************/
 /* Wrappers                                                                      */
 /*********************************************************************************/
@@ -693,6 +744,9 @@
 			z-index: 1;
 		}
 	
+	.clear{
+		clear: both;
+	}
 /*********************************************************************************/
 /* Header                                                                        */
 /*********************************************************************************/

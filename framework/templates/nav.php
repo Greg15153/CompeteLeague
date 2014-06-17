@@ -1,3 +1,4 @@
+<?php global $mysqli; ?>
 <!-- Header Wrapper -->
 			<div id="header-wrapper">
 				<div class="container">
@@ -61,10 +62,42 @@
                                                         <li><a href="?do=Contact&reason=Email">Email Us</a></li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="http://reddit.com/r/CompeteLeague">Forums</a></li>
+                                                <li><a href="../clfourm/">Forums</a></li>
                                             </ul>
                                         </nav>
 									</div>
+																			<?php
+										if (login_check($mysqli) == false) {
+										?>
+											<style>
+
+											</style>
+											<div id="navLoginContainer"><div id="navLoginBtn" onclick="loginPopup()"><a>Login</a></div></div>
+											<div class="ar login_popup">
+										 
+											<div class="loginPopup">
+												<img src="images/closePopup.png" href="#" class="closePopup" /> 
+												<form name="login_form">                      
+													<span class="title">Email</span> <input name="email" type="text" />
+													<span class="title">Password</span> <input name="password" type="password" />
+													<input name="submit" type="button" value="Login" style="float: right" onclick="formhash(this.form.email, this.form.password);"/>
+													<input name="submit" type="button" value="Register" style="float: right" onclick="window.location.replace('?do=Register');"/>
+												</form>
+											</div>
+										</div>
+										<?php
+										}else{
+										?>
+											<div id="navLoginContainer"><div id="navLoginBtn"><?=$_SESSION['username']?><br /><a onclick="logout()">Logout</a></div></div>
+										<?php
+											}
+										?>
+
+										<div id="socialMedia">
+											<a href="http://www.reddit.com/r/CompeteLeague"><img src="images/socialMedia/reddit_small.png" /></a>
+										</div>
+										
+										<div class="clear"></div>
 								</header>
 						</div>
 					</div>
