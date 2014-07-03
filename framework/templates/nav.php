@@ -93,7 +93,7 @@
 										?>
 									</div>
 										<div id="socialMedia">
-											<a href="http://www.reddit.com/r/CompeteLeague"><img src="images/socialMedia/reddit_small.png" /></a>
+											<a href="http://www.reddit.com/r/CompeteLeague" target="_blank"><img src="images/socialMedia/reddit_small.png" /></a>
 										</div>
 										
 										<div class="clear"></div>
