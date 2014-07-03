@@ -1,12 +1,13 @@
 <?php
 	//error_reporting(0);
+	require_once('clforum/SSI.php');
 	require_once("Clean.php");
 	require_once("TemplateHandler.php");
 	require_once("MessageHandler.php");
 	require_once("RequestHandler.php");
-	require_once("tools/loginFunctions.php");
-	session_start();
-	//sec_session_start();
+
+	$_SESSION['login_url'] = 'http:/www.competeleague.com' . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
+	$_SESSION['logout_url'] = 'http://www.competeleague.com' . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
 	###### Constants ######
 	
 	/* Define Constants */

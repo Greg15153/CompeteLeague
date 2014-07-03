@@ -10,8 +10,8 @@
 			
 			@param $mysql - MYSQL object required for mysql_real_escape_string function
 		*/
-		public function __construct($mysql){
-			$this->mysql = $mysql;
+		public function __construct($mysqli){
+			$this->mysqli = $mysqli;
 		}
 		
 		/* 
@@ -50,8 +50,9 @@
 			@return returns cleanedInput
 		*/
 		public function cleanInput($input) {
+            $link = mysqli_connect("competeleague.db.11835769.hostedresource.com", "competeleague", "we3Raxa@a6!ase", "competeleague");
 			$input = htmlentities($input);
-			$cleaned = mysql_real_escape_string($input);
+			$cleaned = mysqli_real_escape_string($link, $input);
 			
 			return $cleaned;
 		}

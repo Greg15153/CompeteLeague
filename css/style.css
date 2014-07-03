@@ -600,42 +600,15 @@
 	
 	#navLoginContainer{
 		width: 300px;
-	}
-	
-	#navLoginBtn{
-		text-align: center;
-		width: 100px;
-		margin-left: 5px;
-		padding: 2px;
-		background-color: #252525;
-		border-left: 2px solid;
-		border-bottom: 2px solid;
-		border-right: 2px solid;
-		border-radius: 2px;
-		cursor: pointer;
 		float: left;
-		-moz-user-select: none;
-		-webkit-user-select: none;
-		user-select: none;
+		color: #F0F0F0;
 	}
-	
-	.loginPopup {
-		position: absolute;
-		margin-left: 5px;
-		padding: 2px;
-		border-left: 2px solid;
-		border-bottom: 2px solid;
-		border-right: 2px solid;
-		border-radius: 2px;
-		z-index: 999;
-		display: none;
-		background-color: #252525;
+	#navLoginContainer strong{
+		color: #F0F0F0;
+		font-weight: bold;
 	}
-	.closePopup{
-		display: block;
-		float: left;
-		vertical-align: middle;
-		padding-right: 5px;
+	#navLoginContainer a:link, #navLoginContainer a:visited{
+		color: #FFFFFF;
 	}
 	#socialMedia{
 		float: right;

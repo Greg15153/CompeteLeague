@@ -3,8 +3,8 @@
 							<!-- Banner -->
 								<div id="banner">
 									<h2><strong>Welcome to CompeteLeague! </strong></h2> 
-								  <p>Take A look at whats new!</p>
-									<a href="?do=" class="button button-big button-icon button-icon-rarrow">Click Here</a>
+								  <p>CHECK OUT OUR NEW FORUMS!</p>
+									<a href="http://competeleague.com/clforum/" class="button button-big button-icon button-icon-rarrow">Forums</a>
                             
 						  </div>
 
