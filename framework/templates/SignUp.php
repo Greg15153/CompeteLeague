@@ -13,10 +13,7 @@ if(isset($_GET['league']) && ($_GET['league'] == 'Silver' || $_GET['league'] == 
 ?>
 	<!-- Content - Silver-->
 	<h3>Silver League Sign Ups</h3>
-	<p>Please use the form below to sign up to be a part of the Silver League</p>
-	<p>Qualifier tournament will take place <strong>July 12th - July 13th</strong>, from 1pm central - 6pm each day.</p>
-	<p>Please note that this tournament is for players Bronze-Silver ranked</p>
-	<iframe src="https://docs.google.com/forms/d/18a7cLnrai19MI7HP9y0fkqIj7jV0B3TGPRHGzbnpomI/viewform?embedded=true" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+	<p>Silver League sign ups have ended for this season, please tune-in to the live stream on July 12th and 13th at 1pm central <a href="?do=Stream&league=Silver">here!</a></p>
      <!-- Content - Silver-->
 <?php
 	}
@@ -24,10 +21,7 @@ if(isset($_GET['league']) && ($_GET['league'] == 'Silver' || $_GET['league'] == 
 ?>
 	<!--Content - Platinum -->
 	<h3>Platinum League Sign Ups</h3>
-	<p>Please use the form below to sign up to be a part of the Platinum League</p>
-	<p>Qualifier tournament will take place <strong>July 19th - July 20th</strong>, from 1pm central - 6pm each day.</p>
-	<p>Also note, this tournament is for players ranked Gold-Platinum</p>
-	<iframe src="https://docs.google.com/forms/d/18a7cLnrai19MI7HP9y0fkqIj7jV0B3TGPRHGzbnpomI/viewform?embedded=true" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+	<p>Platinum League sign ups have ended for this season, please tune-in to the live stream on July 19th and 20th at 1pm central <a href="?do=Stream&league=Platinum">here!</a></p>
 	<!--Content - Platinum -->
 <?php
 	}
@@ -35,10 +29,7 @@ if(isset($_GET['league']) && ($_GET['league'] == 'Silver' || $_GET['league'] == 
 ?>
 	<!-- Content - Diamond -->
 	<h3>Diamond League Sign Ups</h3>
-	<p>Please use the form below to sign up to be a part of the Diamond League</p>
-	<p>Qualifier tournament will take place <strong>July 26th - July 27th</strong>, from 1pm central - 6pm each day.</p>
-	<p>Please note this tournament is for player Diamond+ ranked</p>
-	<iframe src="https://docs.google.com/forms/d/18a7cLnrai19MI7HP9y0fkqIj7jV0B3TGPRHGzbnpomI/viewform?embedded=true" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+	<p>Diamond League sign ups have ended for this season, please tune-in to the live stream on July 26th and 27th at 1pm central <a href="?do=Stream&league=Diamond">here!</a></p>
 	<!-- Content - Diamond -->
 <?php
 	}
