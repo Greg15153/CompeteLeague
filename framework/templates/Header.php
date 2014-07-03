@@ -1,6 +1,7 @@
 <?php 
 	include_once('clforum/SSI.php');
-	include_once("framework/globals.php"); ?>
+	include_once("framework/globals.php"); 
+?>
 
 <html>
 <head>    
