@@ -6,8 +6,8 @@
 	require_once("MessageHandler.php");
 	require_once("RequestHandler.php");
 
-	$_SESSION['login_url'] = 'http:/www.competeleague.com' . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
-	$_SESSION['logout_url'] = 'http://www.competeleague.com' . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
+    $_SESSION['login_url'] = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+	$_SESSION['logout_url'] = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	###### Constants ######
 	
 	/* Define Constants */

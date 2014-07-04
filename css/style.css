@@ -599,7 +599,7 @@
 	}
 	
 	#navLoginContainer{
-		width: 300px;
+		width: 500px;
 		float: left;
 		color: #F0F0F0;
 	}
@@ -609,6 +609,45 @@
 	}
 	#navLoginContainer a:link, #navLoginContainer a:visited{
 		color: #FFFFFF;
+	}
+	
+	#navLoginBtn{
+		text-align: center;
+		width: 100px;
+		margin-left: 5px;
+		padding: 2px;
+		cursor: pointer;
+		float: left;
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		user-select: none;
+		color: #FFFFFF;
+		text-decoration: underline;
+		font-weight: bold;
+	}
+	
+	.loginPopup {
+		position: absolute;
+		width: 100%;
+		margin-left: 5px;
+		padding: 2px;
+		z-index: 999;
+		display: none;
+	}
+
+	.ssi_table tr{
+		float: left;
+	}
+	.button_submit{
+		background-color: #367fa1;
+		color: #FFFFFF;
+		border: none;
+		vertical-align: middle;
+		font-weight: bold;
+	}
+	.ssi_table label{
+		color: #F0F0F0;
+		font-weight: bold;
 	}
 	#socialMedia{
 		float: right;

@@ -1,0 +1,1 @@
+<p>Welcome to the Admin Area. Here you can perform multiple actions relating to the leagues. Please do not abuse your power! On the left you can find all the things you can do!</p>

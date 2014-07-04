@@ -16,7 +16,7 @@ if(isset($_GET['league']) && ($_GET['league'] == 'Silver' || $_GET['league'] == 
    <h2><?=$league?> League</h2>
 	</header>
 	<ul class="style2">
-		<li><a href="?do=SignUp&league=<?=$league?>">Sign Up</a></li>
+		<li><a href="?do=Qualifiers&league=<?=$league?>">Qualifiers</a></li>
         <li><a href="?do=Info&league=<?=$league?>">Info</a></li>
         <li><a href="?do=Schedule&league=<?=$league?>">Schedule</a></li>
         <li><a href="?do=Stream&league=<?=$league?>">Stream</a></li>

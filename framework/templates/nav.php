@@ -1,4 +1,4 @@
-<?php global $mysqli; ?>
+<?php global $mysqli; global $context;?>
 <!-- Header Wrapper -->
 			<div id="header-wrapper">
 				<div class="container">
@@ -15,7 +15,7 @@
                                                 <li><a href="?do=LeagueHome&league=Silver">
                                                     <span>Silver League</span></a>
                                                     <ul>
-                                                        <li><a href="?do=SignUp&league=Silver">Sign Up</a></li>
+                                                        <li><a href="?do=Qualifiers&league=Silver">Qualifiers</a></li>
                                                         <li><a href="?do=Info&league=Silver">Info</a></li>
                                                         <li><a href="?do=Schedule&league=Silver">Schedule</a></li>
                                                         <li><a href="?do=Stream&league=Silver">Stream</a></li>
@@ -29,7 +29,7 @@
                                                 </li>
                                                 <li><a href="?do=LeagueHome&league=Platinum"><span>Platinum League</span></a>
                                                     <ul>
-														<li><a href="?do=SignUp&league=Platinum">Sign Up</a></li>
+														<li><a href="?do=Qualifiers&league=Platinum">Qualifiers</a></li>
                                                         <li><a href="?do=Info&league=Platinum">Info</a></li>
                                                         <li><a href="?do=Schedule&league=Platinum">Schedule</a></li>
                                                         <li><a href="?do=Stream&league=Platinum">Stream</a></li>
@@ -43,7 +43,7 @@
                                                 </li>
                                                 <li><a href="?do=LeagueHome&league=Diamond"><span>Diamond League</span></a>
                                                     <ul>
-														<li><a href="?do=SignUp&league=Diamond">Sign Up</a></li>
+														<li><a href="?do=Qualifiers&league=Diamond">Qualifiers</a></li>
                                                         <li><a href="?do=Info&league=Diamond">Info</a></li>
                                                         <li><a href="?do=Schedule&league=Diamond">Schedule</a></li>
                                                         <li><a href="?do=Stream&league=Diamond">Stream</a></li>
@@ -71,8 +71,17 @@
 											//If Logged out:
 											if ($context['user']['is_guest'])
 											{
+										?>
+										<div id="navLoginContainer"><div id="navLoginBtn" onclick="loginPopup()">Login</div><div id="navRegisterBtn"><a href="http://competeleague.com/clforum/index.php?action=register">Register</a></div></div>
+										<div class="ar login_popup">
+											<div class="loginPopup">
+												<img src="images/closePopup.png" style="float: left;" href="#" class="closePopup" /> 
+										<?php
 												ssi_login();
 										?>
+											</div>
+										</div>
+										
 										<?php
 											//If logged in:
 											}else{
@@ -85,7 +94,11 @@
 											</div>
 											<div id="loginLogout">
 										<?php
-												ssi_logout();
+												if($context['user']['is_admin']){
+										?>
+												<a href="?do=AdminArea">Admin Panel</a> | 
+										<?php
+												}ssi_logout();
 										?>
 											</div>
 										<?php
