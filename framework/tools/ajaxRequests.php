@@ -1,7 +1,8 @@
 <?php
-    include_once("../adminGlobals.php");
     include_once("lolRequests.php");
-    global $seasonSQL;
+	include_once("../globals.php");
+	
+	global $mysqli;
     global $currentSeason;
     global $lolKey;
     
@@ -9,11 +10,11 @@
     if(isset($_POST['division'])){
 		$division = $_POST['division'];
         $result = '{ "teams" : [';
-        $getTeams = $seasonSQL->getArray("SELECT id,name FROM teams WHERE season='$currentSeason' AND division='$division' ORDER BY name ASC");
-       
-        foreach($getTeams as $teamInfo)
-           $result = $result.'{ "id" : '.$teamInfo['id'].', "name" : "'.$teamInfo['name'].'"},';
+        $getTeams = $mysqli->query("SELECT id,name FROM teams WHERE season='$currentSeason' AND division='$division' ORDER BY name ASC");
         
+		while ($teamInfo = $getTeams->fetch_row()){
+           $result = $result.'{ "id" : '.$teamInfo[0].', "name" : "'.$teamInfo[1].'"},';
+		}
         $result = $result."]}";
         $result = str_replace_last(",", "", $result);
         echo $result;
@@ -25,10 +26,11 @@
 		$team = $_POST['team'];
         $result = '{ "players" : [';
         
-        $getPlayers = $seasonSQL->getArray("SELECT id,LoLid, summoner,profilePicture,position FROM players WHERE team=$team ORDER BY position ASC");
+        $getPlayers = $mysqli->query("SELECT id,summoner,profilePicture,position,LoLid FROM players WHERE team=$team ORDER BY position ASC");
         
-        foreach($getPlayers as $player)
-           $result = $result.'{ "id" : '.$player['id'].', "summoner" : "'.$player['summoner'].'", "profilePicture" : "'.$player['profilePicture'].'", "position" : "'.$player['position'].'", "LoLid" : "'.$player['LoLid'].'"},';
+        while ($player = $getPlayers->fetch_row()){
+           $result = $result.'{ "id" : '.$player[0].', "summoner" : "'.$player[1].'", "profilePicture" : "'.$player[2].'", "position" : "'.$player[3].'", "LoLid" : "'.$player[4].'"},';
+		}
         
         $result = $result."]}";
         $result = str_replace_last(",", "", $result);
@@ -52,7 +54,7 @@
     }
     
     
-    //Submits a Game to the Game table for page: /AdminArea/submitGame.php
+    //Submits a Game to the Game table for page: 
     if(isset($_POST['submitGame'])){
         $team1 = $_POST['SGteam1'];
         $team2 = $_POST['SGteam2'];
@@ -69,25 +71,72 @@
 
         $date = date('Y-m-d', strtotime(str_replace('-', '/', $date)));
         $gameID = getGameID($teamList[0], $teamList, $lolKey);
+        $gameExists = $mysqli->query("SELECT * FROM  games WHERE  LoLid=".$gameID);
+		echo mysqli_num_rows($gameExists);
+        if(mysqli_num_rows($gameExists) == 0){
+			$table = $mysqli->query("SELECT AUTO_INCREMENT FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '".$dbName."' AND   TABLE_NAME   = 'games'");
         
-        $gameExists = $seasonSQL->getArray("SELECT * FROM  games WHERE  LoLid=".$gameID);
-        if(count($gameExists) == 0){
-        $tableID = $seasonSQL->getArray("SELECT AUTO_INCREMENT FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '".$dbName."' AND   TABLE_NAME   = 'games'");
-        
+        while ($getID = $table->fetch_row()){
+			$tableID = $getID[0];
+		}
+		
         $queryList = array();
-        
+		
         for($i=0; $i<count($teamList); $i++){        
-            $addStats = generatePlayerStats($teamList[$i], $teamListID[$i], $tableID[0]['AUTO_INCREMENT'], $gameID, $lolKey);
-            $seasonSQL->query($addStats);
+            $addStats = generatePlayerStats($teamList[$i], $teamListID[$i], $tableID, $gameID, $lolKey);
+            $mysqli->query($addStats);
             sleep(10);
         }
         
-        $seasonSQL->query("INSERT INTO  games (id, LoLid, season, division, playedDate, team1, team2, win) VALUES ('".$tableID[0]['AUTO_INCREMENT']."',  '".$gameID."',  '".$currentSeason."',  '".$division."',  '".$date."',  '".$team1."',  '".$team2."',  '".$winner."')");
+        $mysqli->query("INSERT INTO  games (id, LoLid, season, division, playedDate, team1, team2, win) VALUES ('".$tableID."',  '".$gameID."',  '".$currentSeason."',  '".$division."',  '".$date."',  '".$team1."',  '".$team2."',  '".$winner."')");
         }
         else
             echo "Game Exists";
     }
-    
+	
+	//Returns if name exists, if not returns query statement WITHOUT image. 
+	if(isset($_POST['addTeam'])){
+		$errors = false;
+		
+		//checks if team name is already taken
+		$result = $mysqli->query("SELECT name FROM teams WHERE  name = '".$_POST['addTeam_name']."' AND division = '".$_POST['addTeam_division']."'");
+		//Team Exists
+		if(mysqli_num_rows($result) > 0)
+			echo "Team Name Exists";
+		else{
+			echo "Success";
+		}
+	}
+	
+	if(isset($_POST['addTeamDatabase'])){
+		if(isset($_POST['addTeam_ext']))
+			$result = $mysqli->query("INSERT INTO teams (id,name,description,season,division,logo) VALUES (NULL ,  '".$_POST['addTeam_name']."',  '".$_POST['addTeam_desc']."',  '".$currentSeason."',  '".$_POST['addTeam_division']."',  '/images/logos/".$_POST['addTeam_name'].".".$_POST['addTeam_ext']."')");
+		else
+			$result = $mysqli->query("INSERT INTO teams (id,name,description,season,division,logo) VALUES (NULL ,  '".$_POST['addTeam_name']."',  '".$_POST['addTeam_desc']."',  '".$currentSeason."',  '".$_POST['addTeam_division']."',  '/images/logos/default.gif')");
+		echo $result;
+	}
+	
+	//Performs checks and then adds player to database
+	if(isset($_POST['addPlayer'])){
+		$summ = $_POST['addPlayer_name'];
+		//Checks if player name already exists
+		$checkPlayer = $mysqli->query("SELECT summoner FROM players WHERE  summoner = '".$summ."'");
+
+		if(mysqli_num_rows($checkPlayer) > 0)
+			echo "Player already Exists";
+		else{
+			$playerName = str_replace(' ', '', $summ);
+			$playerID = getPlayerID(strtolower($playerName), $lolKey);
+			
+			//adds to database
+			$addPlayer = $mysqli->query("INSERT INTO players (id,LoLid,summoner,profilePicture,team,position) VALUES (NULL ,  '".$playerID."',  '".$summ."',  '/images/profilePictures/default.gif',  '".$_POST['addPlayer_team']."',  '".$_POST['addPlayer_position']."')");
+			if($addPlayer == 1)
+				echo "Success";
+			else
+				echo "Error";
+		}
+	}
+   
     //Replaces the Last instance of an item in a string
     function str_replace_last( $search , $replace , $str ) {
         if( ( $pos = strrpos( $str , $search ) ) !== false ) {
@@ -96,5 +145,11 @@
         }
         return $str;
     }
-    
+	
+	if(isset($_POST['saveContent'])){
+		 $handle=fopen("/home/content/69/11835769/html/".$_POST['saveContent_location'], "w");
+		 fwrite($handle, $_POST['saveContent_content']);
+		 fclose($handle);
+		 echo "Content Saved";
+	}
 ?>

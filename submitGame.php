@@ -52,6 +52,7 @@ function getTeams(division){
     if(division.value != "NA"){
         $.post( "../framework/tools/ajaxRequests.php", {division : division.value})
 		    .done(function(data) {
+				alert(data + "-- TOMATOES");
                 data = eval ("(" + data + ")");		
                 team1.empty();
                 team2.empty();

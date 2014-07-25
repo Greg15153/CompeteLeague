@@ -1,6 +1,5 @@
 <?php
 	//error_reporting(0);
-	require_once('clforum/SSI.php');
 	require_once("Clean.php");
 	require_once("TemplateHandler.php");
 	require_once("MessageHandler.php");
@@ -11,16 +10,13 @@
 	###### Constants ######
 	
 	/* Define Constants */
-	//define("HOST", "competeleague.db.11835769.hostedresource.com");
-	define("HOST", "localhost");
+	define("HOST", "competeleague.db.11835769.hostedresource.com");
 	
 	/* User for MYSQL */
-	//define("USER", "competeleague");
-	define("USER", "root");
+	define("USER", "competeleague");
 	
 	/* Password for MYSQL */
-	//define("PASS", "we3Raxa@a6!ase");
-	define("PASS", "");
+	define("PASS", "we3Raxa@a6!ase");
 	
 	/* Database for MYSQL */
 	define("DBASE", "competeleague");

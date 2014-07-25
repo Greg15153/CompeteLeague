@@ -10,7 +10,17 @@
         curl_close($ch);
         return $data;
     }
-    
+    function getPlayerID($playerName, $lolKey){
+		$playerInfo = get_data("https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/".$playerName."?api_key=".$lolKey);
+		$playerInfo = json_decode($playerInfo, true);
+		
+			if($playerInfo[$playerName]["id"] == "")
+				return "Could not find player";
+			else
+				return $playerInfo[$playerName]["id"];
+
+	}
+	
     //Gets ten most recent matches for a player, LoL does not allow you to get 1 game from an ID D:
     function getRecentMatches($playerID, $lolKey){
         $recentMatches = get_data("https://na.api.pvp.net/api/lol/na/v1.3/game/by-summoner/".$playerID."/recent?api_key=".$lolKey);
@@ -58,5 +68,5 @@
                 $problem = "Match not Found";
         }
         return $problem;
-    }
+    }	
 ?>

@@ -1,4 +1,16 @@
-<?php include_once("framework/templates/left-nav.php"); ?>
+<script>
+function saveContent(contentLoc){
+	var content = $("#HTMLContent").val();
+	$.post( "framework/tools/ajaxRequests.php", {saveContent : "true", saveContent_location : contentLoc, saveContent_content : content})
+				.done(function(data) {
+					alert(data);
+				});
+}
+</script>
+
+<?php include_once("framework/templates/left-nav.php"); 
+	global $context;
+?>
 	  
 	<div class="8u skel-cell-mainContent">
 		<div id="content">
@@ -8,29 +20,27 @@
 if(isset($_GET['league']) && ($_GET['league'] == 'Silver' || $_GET['league'] == 'Platinum' || $_GET['league'] == 'Diamond')){
 
 		$league = $_GET['league'];
-		
-	if($league == 'Silver'){
+	if ($context['user']['is_admin']){ 
 ?>
-	<!-- Content - Silver-->
-	<h3>Roster</h3>
-	<p>There is currently no content to be put here!</p>	
-	<!-- Content - Silver-->
+	<textarea id="HTMLContent" style="width: 100%; height: 400px;">
 <?php
+}
+	if($league == 'Silver'){
+		$contentLoc = "framework/templates/Content/Silver/Roster.html";
+		include_once($contentLoc);
 	}
 	else if($league == 'Platinum'){
-?>
-	<!--Content - Platinum -->
-	<h3>Roster</h3>
-	<p>There is currently no content to be put here!</p>
-	<!--Content - Platinum -->
-<?php
+		$contentLoc = "framework/templates/Content/Platinum/Roster.html";
+		include_once($contentLoc);
 	}
 	else if($league == 'Diamond'){
+		$contentLoc = "framework/templates/Content/Diamond/Roster.html";
+		include_once($contentLoc);
+	}
+	
+	if($context['user']['is_admin']){
 ?>
-	<!-- Content - Diamond -->
-	<h3>Roster</h3>
-	<p>There is currently no content to be put here!</p>
-	<!-- Content - Diamond -->
+	</textarea><input type="submit" value="Save Changes" onclick="saveContent('<?=$contentLoc?>')"/>
 <?php
 	}
 }
@@ -50,3 +60,4 @@ else{
 		</div>
 	<div class="main-wrapper-style3"></div>
 </div>
+
