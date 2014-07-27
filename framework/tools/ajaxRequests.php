@@ -71,8 +71,8 @@
 
         $date = date('Y-m-d', strtotime(str_replace('-', '/', $date)));
         $gameID = getGameID($teamList[0], $teamList, $lolKey);
+
         $gameExists = $mysqli->query("SELECT * FROM  games WHERE  LoLid=".$gameID);
-		echo mysqli_num_rows($gameExists);
         if(mysqli_num_rows($gameExists) == 0){
 			$table = $mysqli->query("SELECT AUTO_INCREMENT FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '".$dbName."' AND   TABLE_NAME   = 'games'");
         
@@ -84,12 +84,22 @@
 		
         for($i=0; $i<count($teamList); $i++){        
             $addStats = generatePlayerStats($teamList[$i], $teamListID[$i], $tableID, $gameID, $lolKey);
-            $mysqli->query($addStats);
-            sleep(10);
+            if($addStats == "Match not Found"){
+				$problem = true;
+			}
+			else
+				array_push($queryList, $addStats);
         }
-        
-        $mysqli->query("INSERT INTO  games (id, LoLid, season, division, playedDate, team1, team2, win) VALUES ('".$tableID."',  '".$gameID."',  '".$currentSeason."',  '".$division."',  '".$date."',  '".$team1."',  '".$team2."',  '".$winner."')");
-        }
+			if($problem == true)
+				echo "Recent matches failure";
+			else{
+				array_push($queryList, "INSERT INTO  games (id, LoLid, season, division, playedDate, team1, team2, win) VALUES ('".$tableID."',  '".$gameID."',  '".$currentSeason."',  '".$division."',  '".$date."',  '".$team1."',  '".$team2."',  '".$winner."')");
+				foreach($queryList as $query){
+					$mysqli->query($query);
+				}
+				echo "Success";
+			}
+		}
         else
             echo "Game Exists";
     }
@@ -148,7 +158,8 @@
 	
 	if(isset($_POST['saveContent'])){
 		 $handle=fopen("/home/content/69/11835769/html/".$_POST['saveContent_location'], "w");
-		 fwrite($handle, $_POST['saveContent_content']);
+		 $content = stripslashes($_POST['saveContent_content']);
+		 fwrite($handle, $content);
 		 fclose($handle);
 		 echo "Content Saved";
 	}

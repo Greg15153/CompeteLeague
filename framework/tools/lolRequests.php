@@ -10,22 +10,35 @@
         curl_close($ch);
         return $data;
     }
+	function contains($needle, $haystack){
+		return strpos($haystack, $needle) !== false;	
+	}
+
     function getPlayerID($playerName, $lolKey){
 		$playerInfo = get_data("https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/".$playerName."?api_key=".$lolKey);
-		$playerInfo = json_decode($playerInfo, true);
 		
-			if($playerInfo[$playerName]["id"] == "")
-				return "Could not find player";
-			else
+		if(contains("Not Found", $playerInfo))
+			return "Could not find player";
+		else{
+			if(contains("Rate limit exceeded", $playerInfo)){
+				echo $playerInfo."<br />";
+				return getPlayerID($playerName, $lolKey);
+			}
+			else{
+				$playerInfo = json_decode($playerInfo, true);
 				return $playerInfo[$playerName]["id"];
-
+			}
+		}
 	}
 	
     //Gets ten most recent matches for a player, LoL does not allow you to get 1 game from an ID D:
     function getRecentMatches($playerID, $lolKey){
         $recentMatches = get_data("https://na.api.pvp.net/api/lol/na/v1.3/game/by-summoner/".$playerID."/recent?api_key=".$lolKey);
         
-        return $recentMatches;
+		if(contains("Rate limit exceeded", $recentMatches))
+			return getRecentMatches($playerID, $lolKey);
+		else
+			return $recentMatches;
     }   
     
     //Gets match id from 10 games with a team -- Doing this so I dont have to run through everyones match list 10 times then do it again to get stats...Time saver...?

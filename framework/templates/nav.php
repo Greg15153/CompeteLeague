@@ -1,4 +1,4 @@
-<?php global $mysqli; global $context;?>
+<?php global $mysqli; global $context; global $user_info;?>
 <!-- Header Wrapper -->
 			<div id="header-wrapper">
 				<div class="container">
@@ -15,7 +15,7 @@
                                                 <li><a href="?do=LeagueHome&league=Silver">
                                                     <span>Silver League</span></a>
                                                     <ul>
-                                                        <li><a href="?do=Qualifiers&league=Silver">Qualifiers</a></li>
+														<li><a href="?do=LeagueHome&league=Silver">Home</a></li>
                                                         <li><a href="?do=Info&league=Silver">Info</a></li>
                                                         <li><a href="?do=Schedule&league=Silver">Schedule</a></li>
                                                         <li><a href="?do=Stream&league=Silver">Stream</a></li>
@@ -29,7 +29,7 @@
                                                 </li>
                                                 <li><a href="?do=LeagueHome&league=Platinum"><span>Platinum League</span></a>
                                                     <ul>
-														<li><a href="?do=Qualifiers&league=Platinum">Qualifiers</a></li>
+														<li><a href="?do=LeagueHome&league=Platinum">Home</a></li>
                                                         <li><a href="?do=Info&league=Platinum">Info</a></li>
                                                         <li><a href="?do=Schedule&league=Platinum">Schedule</a></li>
                                                         <li><a href="?do=Stream&league=Platinum">Stream</a></li>
@@ -43,7 +43,7 @@
                                                 </li>
                                                 <li><a href="?do=LeagueHome&league=Diamond"><span>Diamond League</span></a>
                                                     <ul>
-														<li><a href="?do=Qualifiers&league=Diamond">Qualifiers</a></li>
+														<li><a href="?do=LeagueHome&league=Diamond">Home</a></li>
                                                         <li><a href="?do=Info&league=Diamond">Info</a></li>
                                                         <li><a href="?do=Schedule&league=Diamond">Schedule</a></li>
                                                         <li><a href="?do=Stream&league=Diamond">Stream</a></li>
@@ -94,7 +94,15 @@
 											</div>
 											<div id="loginLogout">
 										<?php
-												if($context['user']['is_admin']){
+												$allowed_groups = array(1, 9, 10);
+												$allowed = false;
+												foreach ($allowed_groups as $allowedGroup)
+													if (in_array($allowedGroup, $user_info['groups']))
+													{
+														$allowed = TRUE;
+														break;
+													}
+												if($allowed){
 										?>
 												<a href="?do=AdminArea">Admin Panel</a> | 
 										<?php

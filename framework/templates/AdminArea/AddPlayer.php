@@ -92,6 +92,7 @@
 						<option value="Middle">Middle</option>
 						<option value="Top">Top</option>
 						<option value="Support">Support</option>
+						<option value="Substitute">Substitute</option>
 					</select></label><span id="positionErr" class="hidden"></span><br />
 
 	<label>Division: <select id="division" onchange="getTeams(this)">

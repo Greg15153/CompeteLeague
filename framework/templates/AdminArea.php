@@ -1,10 +1,19 @@
 <?php include_once("framework/templates/adminLeftNav.php"); 
-	global $context; ?>
+	global $context; 
+	global $user_info;?>
 	  
 	<div class="8u skel-cell-mainContent">
 		<div id="content">
 		<?php
-			if ($context['user']['is_admin']){
+		$allowed_groups = array(1, 9, 10);
+		$allowed = false;
+		foreach ($allowed_groups as $allowedGroup)
+			if (in_array($allowedGroup, $user_info['groups']))
+			{
+				$allowed = TRUE;
+				break;
+			}
+			if ($allowed){
 				switch($_GET['action']){
 					case "AddPlayer" : include_once("framework/templates/AdminArea/AddPlayer.php");break;
 					case "RemovePlayer" : include_once("framework/templates/AdminArea/RemovePlayer.php");break;

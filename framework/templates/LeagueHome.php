@@ -1,41 +1,53 @@
-<?php include_once("framework/templates/left-nav.php");  ?>
+<script>
+function saveContent(contentLoc){
+	var content = $("#HTMLContent").val();
+	$.post( "framework/tools/ajaxRequests.php", {saveContent : "true", saveContent_location : contentLoc, saveContent_content : content})
+				.done(function(data) {
+					alert(data);
+				});
+}
+</script>
 
-<div class="8u skel-cell-mainContent">
-	<div id="content">
-	
+<?php include_once("framework/templates/left-nav.php"); 
+	global $context;
+?>
+	  
+	<div class="8u skel-cell-mainContent">
+		<div id="content">
+		
+
 <?php
 if(isset($_GET['league']) && ($_GET['league'] == 'Silver' || $_GET['league'] == 'Platinum' || $_GET['league'] == 'Diamond')){
+
 		$league = $_GET['league'];
-		
-	if($league == 'Silver'){
+	if ($context['user']['is_admin']){ 
 ?>
-	<!-- Content - Silver-->
-	<p>Welcome to the registration for <?=$league?> League! Anyone rated Silver and below can sign up with their friends to try their hand at taking home some nice Riot Points for 1st-3rd place. The first thing you must do is register your team (you are allowed substitutes) and we will put your team in a bracket to qualify for our LCS style competition. The top eight teams who qualified will be playing on stream in front of viewers on Tuesday evening and will play two games having their games casted. If you are thinking about smurfing your team will be disqualified we have a very thorough process to identify smurf accounts. </p>
-	<p><strong>Qualifiers will be July 12th-13th</strong></p>
-     <!-- Content - Silver-->
+	<textarea id="HTMLContent" style="width: 100%; height: 400px;">
 <?php
+}
+	if($league == 'Silver'){
+		$contentLoc = "framework/templates/Content/Silver/Home.html";
+		include_once($contentLoc);
 	}
 	else if($league == 'Platinum'){
-?>
-	<!--Content - Platinum -->
-	<p>Welcome to the registration for Platinum League! Anyone rated Platinum and below can sign up with their friends to try their hand at taking home some nice Riot Points for 1st-3rd place. The first thing you must do is register your team (you are allowed substitutes) and we will put your team in a bracket to qualify for our LCS style competition. The top eight teams who qualified will be playing on stream in front of viewers on Wednesday evening and will play two games having their games casted. If you are thinking about smurfing your team will be disqualified we have a very thorough process to identify smurf accounts. </p>
-	<p><strong>Qualifiers will be July 19th-20th</strong></p>
-	<!--Content - Platinum -->
-<?php
+		$contentLoc = "framework/templates/Content/Platinum/Home.html";
+		include_once($contentLoc);
 	}
 	else if($league == 'Diamond'){
+		$contentLoc = "framework/templates/Content/Diamond/Home.html";
+		include_once($contentLoc);
+	}
+	
+	if($context['user']['is_admin']){
 ?>
-	<!-- Content - Diamond -->
-	<p>Welcome to the registration for Diamond League! Anyone rated Challenger and below can sign up with their friends to try their hand at taking home some nice Riot Points for 1st-3rd place. The first thing you must do is register your team (you are allowed substitutes) and we will put your team in a bracket to qualify for our LCS style competition. The top eight teams who qualified will be playing on stream in front of viewers on Thursday evening and will play two games having their games casted.</p>								
-	<p><strong>Qualifiers will be July 26th-27th</strong></p>
-	<!-- Content - Diamond -->
+	</textarea><input type="submit" value="Save Changes" onclick="saveContent('<?=$contentLoc?>')"/>
 <?php
 	}
 }
 else{
 ?>
 	<!-- Content -->
-	<p>Please select a league on the left to get the latest news for that league!</p>
+	<p>Please select a league on the left to get the latest news for that league!</p>	
 	<!-- Content -->
 <?php
 }
@@ -48,3 +60,4 @@ else{
 		</div>
 	<div class="main-wrapper-style3"></div>
 </div>
+

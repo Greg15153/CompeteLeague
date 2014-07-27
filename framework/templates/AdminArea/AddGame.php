@@ -200,11 +200,12 @@ function submitGame(){
     
         $.post( "framework/tools/ajaxRequests.php", {submitGame : "true", SGteam1 : team1, SGteam2 : team2, SGdivision : division, SGdate : date, SGwinner : winner, 'SGteam1Sel[]' : selTeam1, 'SGteam2Sel[]' : selTeam2, 'SGteam1ID[]' : selTeam1ID, 'SGselTeam2ID[]' : selTeam2ID})
     	 .done(function(data) {
-			alert(data);
                 if(data == "Game Exists")
                     $("#rightContainer").html("Game already exists, <a href='?do=AdminArea&action=AddGame'>Try Again</a>");
                 else if(data == "Match not Found")
                     $("#rightContainer").html("There was a problem locating the match, <a href='?do=AdminArea&action=AddGame'>Try Again</a>");
+				else if(data == "Recent matches failure")
+					$("#rightContainer").html("Could not locate the recent match for some players, please try again in a little bit!");
                 else
                     $("#rightContainer").html("Your game has been submitted successfully!");
         });
