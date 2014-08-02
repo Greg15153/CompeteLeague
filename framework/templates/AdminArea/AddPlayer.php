@@ -72,6 +72,8 @@
 				//If already exists
 				if(data == "Player already Exists")
 					$("#addPlayerContainer").html("Player already exists, please <a href='?do=AdminArea&action=EditPlayer'>edit</a> them or <a href='?do=AdminArea&action=AddPlayer'>Try Again</a>");
+				else if(data == "Could not find player")
+					$("#addPlayerContainer").html(summ +" could not be found through League of Legends API, please check to see if player exists! <a href='?do=AdminArea&action=AddPlayer'>Try Again</a>");
 				else if(data != "Error")
 					$("#addPlayerContainer").html(summ +" has been added to the team: "+teamName+"! <a href='?do=AdminArea&action=AddPlayer'>Add another player?</a>");
 				else

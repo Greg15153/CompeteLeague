@@ -13,8 +13,10 @@ if(isset($_GET['league']) && ($_GET['league'] == 'Silver' || $_GET['league'] == 
 
 		$league = $_GET['league'];
 ?>
+	<!--ADVERTISEMENT-->
    <h2><?=$league?> League</h2>
 	</header>
+	<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
 	<ul class="style2">
 		<li><a href="?do=LeagueHome&league=<?=$league?>">Home</a></li>
         <li><a href="?do=Info&league=<?=$league?>">Info</a></li>
@@ -41,7 +43,17 @@ if(isset($_GET['league']) && ($_GET['league'] == 'Silver' || $_GET['league'] == 
 ?>
 </ul>
 			<footer>
-				<a href="?do=" class="button button-icon button-icon-rarrow">Homepage</a>
+			<a href="?do=" class="button button-icon button-icon-rarrow">Homepage</a>
+			<br />
+			<script type="text/javascript">
+			  ( function() {
+				if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };
+				var unit = {"calltype":"async[2]","publisher":"burrow900","width":300,"height":150,"sid":"Chitika Default"};
+				var placement_id = window.CHITIKA.units.length;
+				window.CHITIKA.units.push(unit);
+				document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
+			}());
+			</script>
 			</footer>
 		</section>
 	</div>

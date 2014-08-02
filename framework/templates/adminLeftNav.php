@@ -12,6 +12,9 @@
    <h2>Admin Area</h2>
 	</header>
 	<ul class="style2">
+		<li><b>Website Management</b></li>
+		<li><a href="?do=AdminArea&action=AddNews">Add News Article</a></li>
+		<li><a href="?do=AdminArea&action=EditNews">Edit News Article</a></li>
 		<li><b>Player Management</b></li>
 		<li><a href="?do=AdminArea&action=AddPlayer">Add Player</a></li>
         <li><a href="?do=AdminArea&action=RemovePlayer">Remove Player</a></li>

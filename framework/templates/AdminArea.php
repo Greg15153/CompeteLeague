@@ -23,6 +23,8 @@
 					case "RemoveTeam" : include_once("framework/templates/AdminArea/RemoveTeam.php");break;
 					case "AddGame" : include_once("framework/templates/AdminArea/AddGame.php");break;
 					case "EditGame" : include_once("framework/templates/AdminArea/EditGame.php");break;
+					case "AddNews" : include_once("framework/templates/AdminArea/AddNews.php");break;
+					case "EditNews" : include_once("framework/templates/AdminArea/EditNews.php");break;
 					default : include_once("framework/templates/AdminArea/landing.php");break;
 				}
 			}else{

@@ -36,6 +36,19 @@
         $result = str_replace_last(",", "", $result);
         echo $result;
     }
+	
+	if(isset($_POST['getPlayerInfo'])){
+		$playerID = $_POST['getPlayerInfo'];
+		
+		$getInfo = $mysqli->query("SELECT * FROM players WHERE id=$playerID");
+		
+		while($playerInfo = $getInfo->fetch_row()){
+			$getTeamName = $mysqli->query("SELECT name FROM teams WHERE id=$playerInfo[4]");
+			while($teamName = $getTeamName->fetch_row())
+				$result = ' { "id" : '.$playerInfo[0].', "LoLid" : "'.$playerInfo[1].'", "summoner" : "'.$playerInfo[2].'", "profilePicture" : "'.$playerInfo[3].'", "teamID" : "'.$playerInfo[4].'", "teamName" : "'.$teamName[0].'", "position" : "'.$playerInfo[5].'"}';
+		}
+		echo $result;
+	}
     
     //Sends an email for Contact Us page
     if(isset($_POST['email'])){
@@ -70,38 +83,41 @@
         $teamListID = array_merge($teamList1ID, $teamList2ID);
 
         $date = date('Y-m-d', strtotime(str_replace('-', '/', $date)));
-        $gameID = getGameID($teamList[0], $teamList, $lolKey);
-
-        $gameExists = $mysqli->query("SELECT * FROM  games WHERE  LoLid=".$gameID);
-        if(mysqli_num_rows($gameExists) == 0){
-			$table = $mysqli->query("SELECT AUTO_INCREMENT FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '".$dbName."' AND   TABLE_NAME   = 'games'");
-        
-        while ($getID = $table->fetch_row()){
-			$tableID = $getID[0];
-		}
-		
-        $queryList = array();
-		
-        for($i=0; $i<count($teamList); $i++){        
-            $addStats = generatePlayerStats($teamList[$i], $teamListID[$i], $tableID, $gameID, $lolKey);
-            if($addStats == "Match not Found"){
-				$problem = true;
+        $gameID = getGameID($teamList, $lolKey);
+		if($gameID == 1)
+			echo "Unable to get game ID";
+		else{
+			$gameExists = $mysqli->query("SELECT * FROM  games WHERE  LoLid=".$gameID);
+			if(mysqli_num_rows($gameExists) == 0){
+				$table = $mysqli->query("SELECT AUTO_INCREMENT FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '".$dbName."' AND   TABLE_NAME   = 'games'");
+			
+			while ($getID = $table->fetch_row()){
+				$tableID = $getID[0];
 			}
-			else
-				array_push($queryList, $addStats);
-        }
-			if($problem == true)
-				echo "Recent matches failure";
-			else{
-				array_push($queryList, "INSERT INTO  games (id, LoLid, season, division, playedDate, team1, team2, win) VALUES ('".$tableID."',  '".$gameID."',  '".$currentSeason."',  '".$division."',  '".$date."',  '".$team1."',  '".$team2."',  '".$winner."')");
-				foreach($queryList as $query){
-					$mysqli->query($query);
+			
+			$queryList = array();
+			
+			for($i=0; $i<count($teamList); $i++){        
+				$addStats = generatePlayerStats($teamList[$i], $teamListID[$i], $tableID, $gameID, $lolKey);
+				if($addStats == "Match not Found"){
+					$problem = true;
 				}
-				echo "Success";
+				else
+					array_push($queryList, $addStats);
 			}
-		}
+				if($problem == true)
+					echo "Recent matches failure";
+				else{
+					array_push($queryList, "INSERT INTO  games (id, LoLid, season, division, playedDate, team1, team2, win) VALUES ('".$tableID."',  '".$gameID."',  '".$currentSeason."',  '".$division."',  '".$date."',  '".$team1."',  '".$team2."',  '".$winner."')");
+					foreach($queryList as $query){
+						$mysqli->query($query);
+					}
+					echo "Success";
+				}
+			}
         else
             echo "Game Exists";
+		}
     }
 	
 	//Returns if name exists, if not returns query statement WITHOUT image. 
@@ -138,12 +154,16 @@
 			$playerName = str_replace(' ', '', $summ);
 			$playerID = getPlayerID(strtolower($playerName), $lolKey);
 			
+			if($playerID == "Could not find player")
+				echo "Could not find player";
+			else{
 			//adds to database
 			$addPlayer = $mysqli->query("INSERT INTO players (id,LoLid,summoner,profilePicture,team,position) VALUES (NULL ,  '".$playerID."',  '".$summ."',  '/images/profilePictures/default.gif',  '".$_POST['addPlayer_team']."',  '".$_POST['addPlayer_position']."')");
 			if($addPlayer == 1)
 				echo "Success";
 			else
 				echo "Error";
+			}
 		}
 	}
    

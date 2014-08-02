@@ -205,7 +205,9 @@ function submitGame(){
                 else if(data == "Match not Found")
                     $("#rightContainer").html("There was a problem locating the match, <a href='?do=AdminArea&action=AddGame'>Try Again</a>");
 				else if(data == "Recent matches failure")
-					$("#rightContainer").html("Could not locate the recent match for some players, please try again in a little bit!");
+					$("#rightContainer").html("Could not locate game ID, have all players of the game update their profile (change their league avatar)! This is a temporary bug with League's API... <a href='?do=AdminArea&action=AddGame'>Try Again</a>");
+				else if(data == "Unable to get game ID")
+					$("#rightContainer").html("Could not locate game ID, have all players of the game update their profile (change their league avatar)! This is a temporary bug with League's API... <a href='?do=AdminArea&action=AddGame'>Try Again</a>");
                 else
                     $("#rightContainer").html("Your game has been submitted successfully!");
         });

@@ -22,8 +22,7 @@
                     <center>
                     <h1>Welcome back to CompeteLeague!</h1> <br />
                     <p>Welcome back to CompeteLeague.com! We've been on hiatus for a while but we're back again! We plan to have many more tournaments and activities this time around</p>
-                    
-                    </center>
+					</center>
                     </section>
                 </section>
                 
@@ -107,12 +106,24 @@
 											</footer>
 										</section>
                                       <section>
-                                      <center> </center>
+                                      <center>					                   					
                                      </section>
 								  </div>
 								</div>
 							</div>
 						</div>
+						<center>
+						<script type="text/javascript">
+						  ( function() {
+							if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };
+							var unit = {"calltype":"async[2]","publisher":"burrow900","width":728,"height":90,"sid":"Chitika Default"};
+							var placement_id = window.CHITIKA.units.length;
+							window.CHITIKA.units.push(unit);
+							document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
+						}());
+						</script>
+						<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+						</center>
 					</div>
 				</div>
 				<div class="main-wrapper-style3"></div>

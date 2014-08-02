@@ -42,9 +42,10 @@
     }   
     
     //Gets match id from 10 games with a team -- Doing this so I dont have to run through everyones match list 10 times then do it again to get stats...Time saver...?
-    function getGameID($playerID, $teamList, $lolKey){
-        $recentMatches = json_decode(getRecentMatches($playerID, $lolKey), true);
-        
+    function getGameID($teamList, $lolKey){
+        $recentMatches = json_decode(getRecentMatches($teamList[0], $lolKey), true);
+        $totalMatches = 0;
+		
         for($i=0; $i<count($recentMatches['games']); $i++){
             for($x=0; $x<count($recentMatches['games'][$i]['fellowPlayers']); $x++){
                 for($y=1; $y<count($teamList); $y++){
@@ -55,7 +56,7 @@
                 if($totalMatches==9)
                     return $recentMatches['games'][$i]['gameId'];
                 else
-                    $problem = true;
+					$problem = true;
             }
         }
         
