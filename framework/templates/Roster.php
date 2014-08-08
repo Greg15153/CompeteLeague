@@ -1,48 +1,68 @@
+<?php include_once("framework/templates/left-nav.php"); global $mysqli;?>
+
+
 <script>
-function saveContent(contentLoc){
-	var content = $("#HTMLContent").val();
-	$.post( "framework/tools/ajaxRequests.php", {saveContent : "true", saveContent_location : contentLoc, saveContent_content : content})
-				.done(function(data) {
-					alert(data);
-				});
-}
+	//displays selected team
+	function changeTeamDisplayed(selected){
+		if(selected.value != "NA"){
+			$(".statsContainer").hide();
+			$("#"+selected.value).show();
+		}
+		else
+			$(".statsContainer").show();
+	}
 </script>
 
-<?php include_once("framework/templates/left-nav.php"); 
-	global $context;
-?>
-	  
 	<div class="8u skel-cell-mainContent">
 		<div id="content">
-		
-
 <?php
 if(isset($_GET['league']) && ($_GET['league'] == 'Silver' || $_GET['league'] == 'Platinum' || $_GET['league'] == 'Diamond')){
 
 		$league = $_GET['league'];
-	if ($context['user']['is_admin']){ 
+		
+		//Get teams -> Players -> Stats for each team, builds a table
+		
+		$getTeams = $mysqli->query("SELECT id, name FROM teams WHERE id > 0 AND division='".$league."' ORDER BY name ASC");
+		$createSelect = $mysqli->query("SELECT id, name FROM teams WHERE id > 0 AND division='".$league."' ORDER BY name ASC");
 ?>
-	<textarea id="HTMLContent" style="width: 100%; height: 400px;">
+		<select id="selectTeam" onchange="changeTeamDisplayed(this)">
+			<option value="NA">All Teams</option>
 <?php
-}
-	if($league == 'Silver'){
-		$contentLoc = "framework/templates/Content/Silver/Roster.html";
-		include_once($contentLoc);
-	}
-	else if($league == 'Platinum'){
-		$contentLoc = "framework/templates/Content/Platinum/Roster.html";
-		include_once($contentLoc);
-	}
-	else if($league == 'Diamond'){
-		$contentLoc = "framework/templates/Content/Diamond/Roster.html";
-		include_once($contentLoc);
-	}
-	
-	if($context['user']['is_admin']){
+		while($team = $createSelect->fetch_row()){
 ?>
-	</textarea><input type="submit" value="Save Changes" onclick="saveContent('<?=$contentLoc?>')"/>
+			<option value="<?=$team[0]?>"><?=$team[1]?></option>
 <?php
-	}
+		}
+?>
+		</select>
+<?php
+		while ($team = $getTeams->fetch_row()){
+			$teamID = $team[0];
+			$teamName = $team[1];
+		
+		$getPlayers = $mysqli->query("SELECT id, summoner, profilePicture, position FROM players WHERE team = ".$teamID);
+?>
+		<div id="<?=$teamID?>" class="statsContainer">
+		<h3><?=$teamName?></h3>
+		<table class="teamStatsTable" width="50%">
+			<tr>
+				<th>Summoner</th>
+				<th>Position</th>
+			</tr>
+<?php
+		while($player = $getPlayers->fetch_row()){
+			
+?>
+			<tr>
+				<td><img style="vertical-align: middle" src="<?=$player[2]?>" width="25" height="25px" /> <?=$player[1]?></td>
+				<td align="center"><?=$player[3]?></td>
+			</tr>
+<?php
+		}
+?>
+		</table></div>
+<?php
+		}
 }
 else{
 ?>
@@ -60,4 +80,3 @@ else{
 		</div>
 	<div class="main-wrapper-style3"></div>
 </div>
-

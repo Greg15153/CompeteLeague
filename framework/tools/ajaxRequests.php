@@ -166,7 +166,36 @@
 			}
 		}
 	}
-   
+   //Updates a Player in the database
+    if(isset($_POST['editPlayer'])){
+			$playerID = $_POST['editPlayer_id'];
+			$summoner = $_POST['editPlayer_summoner'];
+			$position = $_POST['editPlayer_position'];
+			$team = $_POST['editPlayer_team'];
+			
+			//Check if the player name already exists and doesn't have the same ID as we're updating
+			$checkPlayer = $mysqli->query("SELECT id FROM players WHERE summoner = '".$summoner."'");
+			if(mysqli_num_rows($checkPlayer) > 0 ){
+				$checkID = $checkPlayer->fetch_row();
+					if($checkID[0] != $playerID)
+						$error = "Player already exists";
+			}
+			
+			if($error == ""){
+				$tempName = str_replace(' ', '', $summoner);
+				$leagueID = getPlayerID(strtolower($tempName), $lolKey);
+				if($leagueID == "Could not find player")
+					$error = "Could not find player through League API";
+				else{
+					$mysqli->query("UPDATE players SET summoner='".$summoner."', LoLid='".$leagueID."', team='".$team."', position='".$position."' WHERE id='".$playerID."'");
+					echo "Player updated";
+				}
+			}
+
+			if($error != "")
+				echo $error;
+    }
+	
     //Replaces the Last instance of an item in a string
     function str_replace_last( $search , $replace , $str ) {
         if( ( $pos = strrpos( $str , $search ) ) !== false ) {

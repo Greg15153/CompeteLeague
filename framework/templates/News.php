@@ -2,7 +2,18 @@
 <div class="8u skel-cell-mainContent">
 	<div id="content">
 									
-NEWS PAGE
+<?php
+	if(isset($_GET['id'])){
+	 // GET NEWS INFORMATION FROM ID
+	 
+	 echo $_GET['id'];
+	}
+	else{
+	 // GET ALL NEWS ARTICLES TO DISPLAY NEWS LIST
+	 
+	 echo "News Archive...";
+	}
+?>
 							
 							</div>
 						</div>

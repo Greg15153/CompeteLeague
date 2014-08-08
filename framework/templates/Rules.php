@@ -1,4 +1,16 @@
-<?php include_once("framework/templates/left-nav.php"); ?>
+<script>
+function saveContent(contentLoc){
+	var content = $("#HTMLContent").val();
+	$.post( "framework/tools/ajaxRequests.php", {saveContent : "true", saveContent_location : contentLoc, saveContent_content : content})
+				.done(function(data) {
+					alert(data);
+				});
+}
+</script>
+
+<?php include_once("framework/templates/left-nav.php"); 
+	global $context;
+?>
 	  
 	<div class="8u skel-cell-mainContent">
 		<div id="content">
@@ -6,47 +18,29 @@
 
 <?php
 if(isset($_GET['league']) && ($_GET['league'] == 'Silver' || $_GET['league'] == 'Platinum' || $_GET['league'] == 'Diamond')){
+
 		$league = $_GET['league'];
-		
-	if($league == 'Silver'){
+	if ($context['user']['is_admin']){ 
 ?>
-	<!-- Content - Silver-->
-	<h3>Rules</h3>
-	<ul>
-		<li>All players must be Silver 1 or lower ranked during their first start, players are allowed to rank up after they start in their first game, substitutes are not allowed to rank past Platinum 1 to be eligible</li>
-		<li>All players must be registered 24 hours prior to game day (including substitutes)</li>
-		<li>All players must be in the lobby within at least 15 minutes of the predetermined start time</li>
-		<li>Each team is permitted 10 minutes of pause time</li>
-		<li>No foul language or disrespectful trash talk in the pre game lobby, or in all chat, friendly trash talking is permitted however</li>
-	</ul>
-	<!-- Content - Silver-->
+	<textarea id="HTMLContent" style="width: 100%; height: 400px;">
 <?php
+}
+	if($league == 'Silver'){
+		$contentLoc = "framework/templates/Content/Silver/Rules.html";
+		include_once($contentLoc);
 	}
 	else if($league == 'Platinum'){
-?>
-	<!--Content - Platinum -->
-	<h3>Rules</h3>
-	<ul>
-		<li>All players must be Platinum 1 or lower ranked during their first start, players are allowed to rank up after they start in their first game, substitutes are not allowed to rank past Platinum 1 to be eligible</li>
-		<li>All players must be registered 24 hours prior to game day (including substitutes)</li>
-		<li>All players must be in the lobby within at least 15 minutes of the predetermined start time</li>
-		<li>Each team is permitted 10 minutes of pause time</li>
-		<li>No foul language or disrespectful trash talk in the pre game lobby, or in all chat, friendly trash talking is permitted however</li>
-	</ul>
-	<!--Content - Platinum -->
-<?php
+		$contentLoc = "framework/templates/Content/Platinum/Rules.html";
+		include_once($contentLoc);
 	}
 	else if($league == 'Diamond'){
+		$contentLoc = "framework/templates/Content/Diamond/Rules.html";
+		include_once($contentLoc);
+	}
+	
+	if($context['user']['is_admin']){
 ?>
-	<!-- Content - Diamond -->
-	<h3>Rules</h3>
-	<ul>
-		<li>All players must be registered 24 hours prior to game day (including substitutes)</li>
-		<li>All players must be in the lobby within at least 15 minutes of the predetermined start time</li>
-		<li>Each team is permitted 10 minutes of pause time</li>
-		<li>No foul language or disrespectful trash talk in the pre game lobby, or in all chat, friendly trash talking is permitted however</li>
-	</ul>
-	<!-- Content - Diamond -->
+	</textarea><input type="submit" value="Save Changes" onclick="saveContent('<?=$contentLoc?>')"/>
 <?php
 	}
 }
@@ -66,3 +60,4 @@ else{
 		</div>
 	<div class="main-wrapper-style3"></div>
 </div>
+

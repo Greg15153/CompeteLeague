@@ -61,7 +61,7 @@
 	$validPlugins = array();
 	
 	/* League of Legends API Key */
-	$lolKey = "71eec9ee-5acc-4d3a-a002-15dc63944409";
+	$lolKey = "5801c4b7-bde8-4bfe-b071-89881d00a06c";
 	
 	/* Current Season -- First or Second */
 	$currentSeason = 2;
