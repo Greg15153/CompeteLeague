@@ -10,16 +10,16 @@
 	###### Constants ######
 	
 	/* Define Constants */
-	define("HOST", "competeleague.db.11835769.hostedresource.com");
+	define("HOST", "");
 	
 	/* User for MYSQL */
-	define("USER", "competeleague");
+	define("USER", "");
 	
 	/* Password for MYSQL */
-	define("PASS", "we3Raxa@a6!ase");
+	define("PASS", "");
 	
 	/* Database for MYSQL */
-	define("DBASE", "competeleague");
+	define("DBASE", "");
 	
 	/* Debug Mode Info */
 	define("MODE", 0);
