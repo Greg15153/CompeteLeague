@@ -11,10 +11,15 @@
 		else
 			$(".statsContainer").show();
 	}
+	
+	function changeRoster(){
+		$("#content").html("<iframe src='https://docs.google.com/forms/d/1gC9wkqQVTcz6g1c1U4eG2xKuPPMIktdr_dQEHr8tAF4/viewform?embedded=true' width='760' height='500' frameborder='0' marginheight='0' marginwidth='0'>Loading...</iframe>");
+	}
 </script>
 
 	<div class="8u skel-cell-mainContent">
 		<div id="content">
+			<a onclick="changeRoster()">Roster Change Request</a><br />
 <?php
 if(isset($_GET['league']) && ($_GET['league'] == 'Silver' || $_GET['league'] == 'Platinum' || $_GET['league'] == 'Diamond')){
 

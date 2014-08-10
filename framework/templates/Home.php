@@ -1,11 +1,11 @@
 <body class="homepage">
-<?php include("framework/templates/nav.php"); ?>
+<?php include("framework/templates/nav2.php"); ?>
 							<!-- Banner -->
 								<div id="banner">
 									<h2><strong>Welcome to CompeteLeague! </strong></h2> 
 								  <p>CHECK OUT OUR NEW FORUMS!</p>
 									<a href="http://competeleague.com/clforum/" class="button button-big button-icon button-icon-rarrow">Forums</a>
-                            
+                            </header>
 						  </div>
 
 						</div>
@@ -18,12 +18,7 @@
 				<div class="main-wrapper-style1">
                 <div class="inner">
                 <section class="inner">
-                	<section class="container box-article-list">
-                    <center>
-                    <h1>Welcome back to CompeteLeague!</h1> <br />
-                    <p>Welcome back to CompeteLeague.com! We've been on hiatus for a while but we're back again! We plan to have many more tournaments and activities this time around</p>
-					</center>
-                    </section>
+
                 </section>
                 
                 
@@ -35,15 +30,15 @@
 								<div class="row">
 									<div class="12u">
 										<header class="first major">
-											<h2>Low Elo Competition</h2>
-											<span class="byline">We're dedicated to bringing a competitive scene to low Elo players of League of legends<strong></strong></span>
+											<h2>Competition Across all Ranks</h2>
+											<span class="byline">We're dedicated to bringing a competitive scene to all levels of League of Legends players<strong></strong></span>
 										</header>
 									</div>
 								</div>
 								<div class="row">
 									<div class="4u">
 										<section>
-											<span class="image image-full"><a href="?do=LeagueHome&league=Silver"><img src="images/croppedlogo.jpg" alt="" /></a></span>
+											<span class="image image-full"><a href="?do=LeagueHome&league=Silver"><img src="images/Emblems/Silver.png" alt="" /></a></span>
 											<header class="second second-friends">
 												<h3>Silver Competitive League</h3>
 												<span class="byline">Learn more about the Silver Competitive League</span>
@@ -52,7 +47,7 @@
 									</div>
 									<div class="4u">
 											<section>
-											<span class="image image-full"><a href="?do=LeagueHome&league=Platinum"><img src="images/croppedlogo.jpg" alt="" /></a></span>
+											<span class="image image-full"><a href="?do=LeagueHome&league=Platinum"><img src="images/Emblems/Platinum.png" alt="" /></a></span>
 										<header class="second second-gear">
 												<h3>Platinum Competitive League</h3>
 												<span class="byline">Learn more about the PCL</span>
@@ -61,7 +56,7 @@
 									</div> 
 									<div class="4u">
 										<section>
-											<span class="image image-full"><a href="?do=LeagueHome&league=Diamond"><img src="images/croppedlogo.jpg" alt="" /></a></span>
+											<span class="image image-full"><a href="?do=LeagueHome&league=Diamond"><img src="images/Emblems/Diamond.png" alt="" /></a></span>
 											<header class="second second-chart">
 												<h3> Diamond Competitive League</h3>
 												<span class="byline">Learn more about the Diamond Competitive League</span>
@@ -71,8 +66,8 @@
 								</div>
 								<div class="row">
 									<div class="12u">
-										<p><a href="Sponsors.html" style="color:#000">Your Logo Here</a><br>
-									    CompeteLeague is dedicated to bringing the best competitive experience for our low Elo players</p>
+										<p><a href="mailto:Lolshock@competeleague.com" style="color:#000">Your Logo Here</a><br>
+									   If you're interested in sponsoring with us or partnering with us, please email me at <a href="mailto:lolshock@competeleague.com">Lolshock@competeleague.com</a></p>
 									</div>
 								</div>
 							</section>
@@ -112,6 +107,7 @@
 								</div>
 							</div>
 						</div>
+                       
 						<center>
 						<script type="text/javascript">
 						  ( function() {
