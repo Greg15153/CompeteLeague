@@ -1,10 +1,13 @@
 <?php
     include_once("lolRequests.php");
+	include_once('../../clforum/SSI.php');
 	include_once("../globals.php");
 	
 	global $mysqli;
     global $currentSeason;
     global $lolKey;
+	global $memberContext;
+
     
     //Gets teams for division for Admin Page - Submit Game
     if(isset($_POST['division'])){
@@ -196,6 +199,39 @@
 				echo $error;
     }
 	
+	if(isset($_POST['submitArticle'])){
+		$section = $_POST['submitArticle_section'];
+		$poster = $_POST['submitArticle_poster'];
+		$title = $_POST['submitArticle_title'];
+		$description = $_POST['submitArticle_description'];
+		$content = $_POST['submitArticle_content'];
+		
+		$title = $mysqli->real_escape_string($title);
+		$description =  $mysqli->real_escape_string($description);
+		$content = $mysqli->real_escape_string($content);
+
+		if($poster <= 0)
+			$poster = 1;
+			
+		$query = $mysqli->query("INSERT INTO news (id,section,title,date,poster,description,article) VALUES (NULL, '".$section."', '".$title."', NOW(),  '".$poster."',  '".$description."',  '".$content."')");
+		
+		if($query)
+			echo "Submitted";
+		else
+			echo "Error";
+	}
+	
+	//SSI requests
+	if(isset($_POST['getMemberInfo'])){
+		$id = $_POST['getMemberInfo_id'];
+		loadMemberData($id); 
+		loadMemberContext($id);
+
+		if(!empty($memberContext)){
+			echo "ID: ". $memberContext[$id]['id'] . "\n";
+			echo "Username: ".$memberContext[$id][username];
+		}
+	}
     //Replaces the Last instance of an item in a string
     function str_replace_last( $search , $replace , $str ) {
         if( ( $pos = strrpos( $str , $search ) ) !== false ) {
