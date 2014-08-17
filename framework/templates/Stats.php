@@ -48,37 +48,44 @@ if(isset($_GET['league']) && ($_GET['league'] == 'Silver' || $_GET['league'] == 
 			<tr>
 				<th>Summoner</th>
 				<th>Position</th>
-				<th>Total Kills</th>
-				<th>Total Deaths</th>
-				<th>Total Assists</th>
-				<th>Total Creeps</th>
-				<th>Total Gold</th>
+				<th>KDA</th>
+				<th>Avg Kills</th>
+				<th>Avg Deaths</th>
+				<th>Avg Assists</th>
+				<th>Avg Creeps</th>
 			</tr>
 <?php
 		while($player = $getPlayers->fetch_row()){
-			$getStats = $mysqli->query("SELECT kills, deaths, assists, creeps, gold FROM stats WHERE playerID = ".$player[0]);
+			$getStats = $mysqli->query("SELECT kills, deaths, assists, creeps FROM stats WHERE playerID = ".$player[0]);
 			$kills = 0;
 			$deaths = 0;
 			$assists = 0;
 			$creeps = 0;
-			$gold = 0;
+			$games = 0;
 			//Adds stats from the pages
 			while($stats = $getStats->fetch_row()){
 				$kills = $kills+$stats[0];
 				$deaths = $deaths+$stats[1];
 				$assists = $assists+$stats[2];
 				$creeps = $creeps+$stats[3];
-				$gold = $gold+$stats[4];	
+				$games++;
 			}
+			if($games == 0)
+				$games = 1;
 ?>
 			<tr>
 				<td><img style="vertical-align: middle" src="<?=$player[2]?>" width="25" height="25px" /> <?=$player[1]?></td>
 				<td align="center"><?=$player[3]?></td>
-				<td align="center"><?=$kills?></td>
-				<td align="center"><?=$deaths?></td>
-				<td align="center"><?=$assists?></td>
-				<td align="center"><?=$creeps?></td>
-				<td align="center"><?=$gold?></td>
+				<td align="center"><?php
+				if($deaths == 0)
+					echo round($kills+$assists, 1, PHP_ROUND_HALF_UP);
+				else
+					echo round(($kills+$assists)/$deaths, 1, PHP_ROUND_HALF_UP);
+				?></td>
+				<td align="center"><?=round($kills/$games, 1, PHP_ROUND_HALF_UP)?></td>
+				<td align="center"><?=round($deaths/$games, 1, PHP_ROUND_HALF_UP)?></td>
+				<td align="center"><?=round($assists/$games, 1, PHP_ROUND_HALF_UP)?></td>
+				<td align="center"><?=round($creeps/$games, 1, PHP_ROUND_HALF_UP)?></td>
 			</tr>
 <?php
 		}
