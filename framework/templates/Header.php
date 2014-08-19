@@ -36,6 +36,7 @@
 
   ga('create', 'UA-41945661-1', 'competeleague.com');
   ga('send', 'pageview');
+ window.onload = function(){ $("#skel-panels-defaultWrapper").remove(); };
 
 </script>
     <script src="js/jquery.js"></script>
