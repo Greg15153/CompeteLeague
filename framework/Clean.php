@@ -50,9 +50,9 @@
 			@return returns cleanedInput
 		*/
 		public function cleanInput($input) {
-            $link = mysqli_connect("competeleague.db.11835769.hostedresource.com", "competeleague", "we3Raxa@a6!ase", "competeleague");
+            $mysqli = mysqli_connect("competeleague.db.11835769.hostedresource.com", "competeleague", "we3Raxa@a6!ase", "competeleague");
 			$input = htmlentities($input);
-			$cleaned = mysqli_real_escape_string($link, $input);
+			$cleaned = $mysqli->real_escape_string($input);
 			
 			return $cleaned;
 		}
