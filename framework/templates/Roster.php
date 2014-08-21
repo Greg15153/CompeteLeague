@@ -45,7 +45,7 @@ if(isset($_GET['league']) && ($_GET['league'] == 'Silver' || $_GET['league'] == 
 			$teamID = $team[0];
 			$teamName = $team[1];
 		
-		$getPlayers = $mysqli->query("SELECT id, summoner, profilePicture, position FROM players WHERE team = ".$teamID);
+		$getPlayers = $mysqli->query("SELECT id, summoner, profilePicture, position FROM players WHERE team = ".$teamID." AND disabled = '0'");
 ?>
 		<div id="<?=$teamID?>" class="statsContainer">
 		<h3><?=$teamName?></h3>

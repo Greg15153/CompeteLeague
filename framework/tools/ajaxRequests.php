@@ -27,12 +27,17 @@
     //Gets Team Players for Admin Page - Submit Game
     if(isset($_POST['team'])){
 		$team = $_POST['team'];
+		if(isset($_POST['editPlayer_getDisabled']))
+			$statement = "SELECT id,summoner,profilePicture,position,LoLid,disabled FROM players WHERE team=$team ORDER BY position ASC";
+		else
+			$statement = "SELECT id,summoner,profilePicture,position,LoLid,disabled FROM players WHERE team=$team AND disabled='0' ORDER BY position ASC";
+			
         $result = '{ "players" : [';
-        
-        $getPlayers = $mysqli->query("SELECT id,summoner,profilePicture,position,LoLid FROM players WHERE team=$team ORDER BY position ASC");
+     
+        $getPlayers = $mysqli->query($statement);
         
         while ($player = $getPlayers->fetch_row()){
-           $result = $result.'{ "id" : '.$player[0].', "summoner" : "'.$player[1].'", "profilePicture" : "'.$player[2].'", "position" : "'.$player[3].'", "LoLid" : "'.$player[4].'"},';
+           $result = $result.'{ "id" : '.$player[0].', "summoner" : "'.$player[1].'", "profilePicture" : "'.$player[2].'", "position" : "'.$player[3].'", "LoLid" : "'.$player[4].'", "disabled" : "'.$player[5].'"},';
 		}
         
         $result = $result."]}";
@@ -48,7 +53,7 @@
 		while($playerInfo = $getInfo->fetch_row()){
 			$getTeamName = $mysqli->query("SELECT name FROM teams WHERE id=$playerInfo[4]");
 			while($teamName = $getTeamName->fetch_row())
-				$result = ' { "id" : '.$playerInfo[0].', "LoLid" : "'.$playerInfo[1].'", "summoner" : "'.$playerInfo[2].'", "profilePicture" : "'.$playerInfo[3].'", "teamID" : "'.$playerInfo[4].'", "teamName" : "'.$teamName[0].'", "position" : "'.$playerInfo[5].'"}';
+				$result = ' { "id" : '.$playerInfo[0].', "LoLid" : "'.$playerInfo[1].'", "summoner" : "'.$playerInfo[2].'", "profilePicture" : "'.$playerInfo[3].'", "teamID" : "'.$playerInfo[4].'", "teamName" : "'.$teamName[0].'", "position" : "'.$playerInfo[5].'", "disabled" : "'.$playerInfo[6].'"}';
 		}
 		echo $result;
 	}
@@ -175,6 +180,7 @@
 			$summoner = $_POST['editPlayer_summoner'];
 			$position = $_POST['editPlayer_position'];
 			$team = $_POST['editPlayer_team'];
+			$disabled = $_POST['editPlayer_disabled'];
 			
 			//Check if the player name already exists and doesn't have the same ID as we're updating
 			$checkPlayer = $mysqli->query("SELECT id FROM players WHERE summoner = '".$summoner."'");
@@ -190,7 +196,7 @@
 				if($leagueID == "Could not find player")
 					$error = "Could not find player through League API";
 				else{
-					$mysqli->query("UPDATE players SET summoner='".$summoner."', LoLid='".$leagueID."', team='".$team."', position='".$position."' WHERE id='".$playerID."'");
+					$mysqli->query("UPDATE players SET summoner='".$summoner."', LoLid='".$leagueID."', team='".$team."', position='".$position."', disabled='".$disabled."' WHERE id='".$playerID."'");
 					echo "Player updated";
 				}
 			}

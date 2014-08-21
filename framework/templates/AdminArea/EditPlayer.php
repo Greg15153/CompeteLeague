@@ -36,7 +36,7 @@ function getPlayers(team){
 	var player = $("#player");
 	
     if(team.value != "NA"){
-        $.post( "framework/tools/ajaxRequests.php", {team : team.value})
+        $.post( "framework/tools/ajaxRequests.php", {team : team.value, editPlayer_getDisabled : "true"})
     	    .done(function(data) {
 				player.empty();
 				data = eval ("(" + data + ")");
@@ -62,7 +62,7 @@ function getPlayerInfo(player){
 	
 	if(player.value != "NA"){
 		playerInfoTbl.empty();
-		playerInfoTbl.append("<tr><th>ID</th><th>Summoner</th><th>LoL ID</th><th>Division</th><th>Team</th><th>Position</th></tr>");
+		playerInfoTbl.append("<tr><th>ID</th><th>Summoner</th><th>LoL ID</th><th>Division</th><th>Team</th><th>Position</th><th>Disabled</th></tr>");
 		
 		$.post( "framework/tools/ajaxRequests.php", {getPlayerInfo : player.value})
     	    .done(function(data) {
@@ -72,13 +72,16 @@ function getPlayerInfo(player){
 				+"</td><td>"+
 					"<select id='playerTeam'></select>"
 				+"</td><td><select id='playerPos'><option value='Jungle'>Jungle</option><option value='Marksman'>Marksman</option><option value='Middle'>Middle</option><option value='Top'>Top</option><option value='Support'>Support</option><option value='Substitute'>Substitute</option></select>"
-					+"</td></tr>");
+				+"</td><td>"+
+						"<select id='playerDisabled'><option value='0'>No</option><option value='1'>Yes</option></select>"
+				+"</tr>");
 					
 				var $options = $("#team > option").clone();
 				$('#playerTeam').append($options);
 				$("#playerTeam").val($("#team").val()).prop('selected', true);
 				$("#playerDivision").val($("#division").val()).prop('selected', true);
 				$("#playerPos").val(data.position).prop('selected', true);
+				$("#playerDisabled").val(data.disabled).prop('selected', true);
             });
 			
 			
@@ -96,6 +99,8 @@ function updatePlayerInformation(){
 			var position = $("#playerPos").val();
 			var division = $("#playerDivision").val();
 			var team = $("#playerTeam").val();
+			var disabled = $("#playerDisabled").val();
+
 			var errors = "";
 			
 			if(summoner == "")
@@ -104,7 +109,7 @@ function updatePlayerInformation(){
 				errors+="Please select a team.\r\n";
 			
 			if(errors == ""){
-				$.post( "framework/tools/ajaxRequests.php", {editPlayer : "true", editPlayer_summoner : summoner, editPlayer_id : id, editPlayer_position : position, editPlayer_division : division, editPlayer_team : team})
+				$.post( "framework/tools/ajaxRequests.php", {editPlayer : "true", editPlayer_summoner : summoner, editPlayer_id : id, editPlayer_position : position, editPlayer_division : division, editPlayer_team : team, editPlayer_disabled : disabled})
 				.done(function(data) {
 					alert(data);
 					//data = eval ("(" + data + ")");
@@ -114,7 +119,7 @@ function updatePlayerInformation(){
 			}
 }
 </script>
-<p>Edit Player</p>
+<p>This area will allow you to edit the follow attributes for each player: Summoner, Division, Team, Position and if they are disabled. Disabling a player will NOT delete them. It will restrict you from adding them to new games and seeing them publically on a roster list etc. It will still allow you to see them in matches they've played.</p>
 
 <div id="editPlayerContainer">
 	<select id="division" onchange="getTeams(this, true)">

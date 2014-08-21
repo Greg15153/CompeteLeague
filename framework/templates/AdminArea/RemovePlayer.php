@@ -1,1 +1,0 @@
-<p>Remove Player</p>

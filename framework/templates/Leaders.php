@@ -23,7 +23,7 @@ if(isset($_GET['league']) && ($_GET['league'] == 'Silver' || $_GET['league'] == 
 			$teamID = $team[0];
 			$teamName = $team[1];
 		
-		$getPlayers = $mysqli->query("SELECT id, summoner, profilePicture, position FROM players WHERE team = ".$teamID);
+		$getPlayers = $mysqli->query("SELECT id, summoner, profilePicture, position FROM players WHERE team = ".$teamID." AND disabled='0'");
 
 			while($player = $getPlayers->fetch_row()){
 				$getStats = $mysqli->query("SELECT kills, deaths, assists, creeps FROM stats WHERE playerID = ".$player[0]);

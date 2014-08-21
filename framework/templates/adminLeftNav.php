@@ -17,7 +17,6 @@
 		<li><a href="?do=AdminArea&action=EditNews">Edit News Article</a></li>
 		<li><b>Player Management</b></li>
 		<li><a href="?do=AdminArea&action=AddPlayer">Add Player</a></li>
-        <li><a href="?do=AdminArea&action=RemovePlayer">Remove Player</a></li>
         <li><a href="?do=AdminArea&action=EditPlayer">Edit Player</a></li>
 		<li><b>Team Management</b></li>
         <li><a href="?do=AdminArea&action=AddTeam">Add Team</a></li>
