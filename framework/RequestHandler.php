@@ -25,7 +25,7 @@
 			parseData();
 		}
 		else {
-			header("Location: index.php?msg=100");
+			header("Location: index.php?msg=404");
 		}
 	}
 	/*

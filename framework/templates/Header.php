@@ -1,6 +1,7 @@
 <?php 
 	include_once('clforum/SSI.php');
 	include_once("framework/globals.php"); 
+
 ?>
 
 <html>
@@ -50,12 +51,12 @@
 	<script type="text/JavaScript" src="js/sha512.js"></script> 
     <script type="text/JavaScript" src="js/loginForms.js"></script>
     <link rel="icon" type="image/ico" href="images/trasparentlogo.ico">
-    <noscript>
-    <link rel="stylesheet" href="css/skel-noscript.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/style-desktop.css" />
+	<noscript>
+		<link rel="stylesheet" href="css/skel-noscript.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/style-desktop.css" />
     </noscript>
-    <!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
+	<!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
     <!--[if lte IE 8]><script src="css/js/html5shiv.js"></script><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
     <!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
 </head>

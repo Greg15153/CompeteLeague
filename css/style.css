@@ -583,14 +583,7 @@
 			line-height: 1.3em;
 			letter-spacing: 0.04em;
 		}
-		
-			
-	#error {
-		background-color: #E53e39;
-		color: #FFFFFF;
-		text-align: center;
-		width: 100%;
-	}
+	
 	#success{
 		background-color: #009900;
 		color: #FFFFFF;
