@@ -196,8 +196,8 @@ function submitGame(){
     }
         
     if(!problems){
-        $("#rightContainer").html("<div id='loadingInfo'>Processing input, will take a minute or so, please wait.<br /><img src='../images/loadingBar.gif' /></div>");
-    
+		
+		/*
         $.post( "framework/tools/ajaxRequests.php", {submitGame : "true", SGteam1 : team1, SGteam2 : team2, SGdivision : division, SGdate : date, SGwinner : winner, 'SGteam1Sel[]' : selTeam1, 'SGteam2Sel[]' : selTeam2, 'SGteam1ID[]' : selTeam1ID, 'SGselTeam2ID[]' : selTeam2ID})
     	 .done(function(data) {
                 if(data == "Game Exists")
@@ -211,16 +211,21 @@ function submitGame(){
                 else
                     $("#rightContainer").html("Your game has been submitted successfully!");
         });
+		*/
     }
         
 }
 
 function makeRowClickable(row){
-    $('#'+row).click(function(event) {
-    if (event.target.type !== 'checkbox') {
-      $('#'+row+"Check").prop("checked", !$('#'+row+'Check').prop("checked"));
-    }
-  });
+	/*
+	$('#'+row).click(function () {
+		$("#"+row+"Check").toggle(this.checked);
+	});
+	*/
+	$(':checkbox').click(function(){
+		alert('click event, checkbox is checked ? ' + this.checked);
+	});
+  
 }
 
 function isValidDate(date){
@@ -263,7 +268,6 @@ function isValidDate(date){
                                         <label>Winner: <select id='winner'></select></label><br />
                                         <input type='submit' id='submitGame' value='Submit Game' onclick='submitGame()' />
                                     </div>
-									<a href="?do=AdminArea&action=AddGame_manual">Manually Add Game</a>
                    </div>
                 </div>
             </div>

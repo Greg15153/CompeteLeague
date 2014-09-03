@@ -25,6 +25,7 @@
 					case "EditGame" : include_once("framework/templates/AdminArea/EditGame.php");break;
 					case "AddNews" : include_once("framework/templates/AdminArea/AddNews.php");break;
 					case "EditNews" : include_once("framework/templates/AdminArea/EditNews.php");break;
+					case "AddGame_manual" : include_once("framework/templates/AdminArea/AddGame_manual.php");break;
 					default : include_once("framework/templates/AdminArea/landing.php");break;
 				}
 			}else{
