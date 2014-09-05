@@ -10,7 +10,6 @@
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
         $data = curl_exec($ch);
         curl_close($ch);
-		echo $data;
         return $data;
     }
 	function contains($needle, $haystack){
@@ -59,7 +58,7 @@
     //Gets ten most recent matches for a player, LoL does not allow you to get 1 game from an ID D:
     function getRecentMatches($playerID, $lolKey){
         $file = "logs/LOG - getRecentMatches.txt";
-		$dumpFile = "LOG - recentMatchesDump.txt";
+		$dumpFile = "logs/LOG - recentMatchesDump.txt";
 		$logger = new logger();
 		$content = $logger->getContent($file);
 		$dumpContent = $logger->getContent($dumpFile);
